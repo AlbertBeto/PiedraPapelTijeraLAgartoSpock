@@ -1,0 +1,53 @@
+@startuml
+class Game{
+- Parser paser
++ <<create>> Game()
+- welcome():void
+- printHelp():void
+- computerMove():Move
+- printWinner(who:int):void
+- printMoves(player:Move, computer:Move):void
+- processMove(move:Move):Boolean
++ playGame():void
+}
+
+Move -> Game
+Parser -left> Game
+MoveWords --> Game
+
+class Move{
+- move : String
++ <<create>> Move()
++ <<create>> Move(move:String)
++ getMove() : move
++ isUnknow() : Boolean
++ beats (Move other) : other.getMove()
+}
+
+class Parser{
+- move : moveWords
+- reader : Scanner
++ <<create>> parser()
++ showCommands() : void
++ newRandomMove(): Move
++ getMove() : Move
+}
+
+class MoveWords{
++ {static}{readOnly} EMPATE : int
++ {static}{readOnly} GANA : int
++ {static}{readOnly} PIERDE : int
+- {static}{readOnly} validMoves : String[]
+- {static}{readOnly} validCommands : String[]
+- rnd : Random
++ <<create>> moveWords()
++ isValidMoveCommand(value:String) : Boolean
++ randomMove() : String
++ showMoves() : void
++ showCommands() : void
++ showWords() : void
+- {static} getIndex(value:String)) : int
++ {static} checkWinner(first : String, second : String) : int
+}
+
+@enduml
